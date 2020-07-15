@@ -10,22 +10,22 @@
       service:
         name: crond
         state: restarted
-    #- name: Enable to install nginx/php
-    #  shell: "amazon-linux-extras enable {{ item }}"
-    #  with_items:
-    #    - nginx1.12
-    #    - php7.3
-    #- name: Install the latest version of yum packages
-    #  yum:
-    #    name: "{{ item }}"
-    #  with_items:
-    #    - python2-pip
-    #    - nginx
-    #    - php
-    #    - php-fpm
-    #    - php-mbstring
-    #    - php-xml
-    #    - php-bcmath
+    - name: Enable to install nginx/php
+      shell: "amazon-linux-extras enable {{ item }}"
+      with_items:
+        - nginx1.12
+        - php7.3
+    - name: Install the latest version of yum packages
+      yum:
+        name: "{{ item }}"
+      with_items:
+        - python2-pip
+        - nginx
+        - php
+        - php-fpm
+        - php-mbstring
+        - php-xml
+        - php-bcmath
     - name: Check composer
       stat:
         path: /usr/local/bin/composer
@@ -152,28 +152,28 @@
         dest: /usr/share/nginx/html/test-laravel/.env
         owner: nginx
         group: nginx
-    #- name: Restart php-fpm
-    #  service:
-    #    name: php-fpm
-    #    state: restarted
-    #- name: Restart nginx
-    #  service:
-    #    name: nginx
-    #    state: restarted
-    ## install CodeDeploy agent
-    #- name: Install the latest version of yum packages
-    #  yum:
-    #    name: "{{ item }}"
-    #  with_items:
-    #    - ruby
-    #- name: Get CodeDeploy agent installer from s3
-    #  get_url:
-    #    url: https://aws-codedeploy-ap-northeast-1.s3.amazonaws.com/latest/install
-    #    dest: /tmp/codedeploy-install
-    #- name: Change CodeDeploy agent permission installer
-    #  file:
-    #    state: file
-    #    path: /tmp/codedeploy-install
-    #    mode: 0755
-    #- name: Install CodeDeploy agent
-    #  command: /tmp/codedeploy-install auto
+    - name: Restart php-fpm
+      service:
+        name: php-fpm
+        state: restarted
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
+    # install CodeDeploy agent
+    - name: Install the latest version of yum packages
+      yum:
+        name: "{{ item }}"
+      with_items:
+        - ruby
+    - name: Get CodeDeploy agent installer from s3
+      get_url:
+        url: https://aws-codedeploy-ap-northeast-1.s3.amazonaws.com/latest/install
+        dest: /tmp/codedeploy-install
+    - name: Change CodeDeploy agent permission installer
+      file:
+        state: file
+        path: /tmp/codedeploy-install
+        mode: 0755
+    - name: Install CodeDeploy agent
+      command: /tmp/codedeploy-install auto

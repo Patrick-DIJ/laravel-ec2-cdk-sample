@@ -65,7 +65,7 @@ export class DeployPipelineStack extends cdk.Stack {
                   computeType: codebuild.ComputeType.SMALL,
                 },
                 cache: codebuild.Cache.bucket(new s3.Bucket(this, 'BuildCacheS3Bucket', {
-                  bucketName: 'defser-test-laravel-codebuild-cache',
+                  bucketName: 'defser1-test-laravel-codebuild-cache',
                 })),
               }),
               outputs: [
@@ -102,7 +102,7 @@ export class DeployPipelineStack extends cdk.Stack {
         },
       ],
       artifactBucket: new s3.Bucket(this, 'PipelineS3Bucket', {
-        bucketName: 'defser-test-laravel-pipeline',
+        bucketName: 'defser1-test-laravel-pipeline',
       }),
     });
 
