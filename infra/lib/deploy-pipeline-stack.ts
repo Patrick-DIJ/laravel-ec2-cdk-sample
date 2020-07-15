@@ -102,7 +102,7 @@ export class DeployPipelineStack extends cdk.Stack {
         },
       ],
       artifactBucket: new s3.Bucket(this, 'PipelineS3Bucket', {
-        bucketName: 'test-laravel-pipeline',
+        bucketName: 'defser-test-laravel-pipeline',
       }),
     });
 
