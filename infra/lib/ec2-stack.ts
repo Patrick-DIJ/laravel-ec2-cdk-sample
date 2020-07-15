@@ -40,7 +40,7 @@ export class EC2Stack extends cdk.Stack {
       iamInstanceProfile: new iam.CfnInstanceProfile(this, 'EC2IAMInstanceProfile', {
         roles: [role.roleName],
       }).ref,
-      imageId: 'ami-0a2de1c3b415889d2',
+      imageId: 'ami-00edb93a4d68784e3',
       instanceType: 't2.micro',
       keyName: 'test-laravel',
       securityGroupIds: [securityGroup.securityGroupId],
