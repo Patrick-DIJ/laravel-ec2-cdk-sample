@@ -45,7 +45,7 @@ export class BuildEnvStack extends cdk.Stack {
         environmentVariables: {
           'REGION': {
             type: codebuild.BuildEnvironmentVariableType.PLAINTEXT,
-            value: 'ap-northeast-1',
+            value: 'eu-central-1',
           },
           'IMAGE_REPO_NAME': {
             type: codebuild.BuildEnvironmentVariableType.PLAINTEXT,
