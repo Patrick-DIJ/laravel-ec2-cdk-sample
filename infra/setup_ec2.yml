@@ -3,9 +3,9 @@
   connection: local
   become: yes
   tasks:
-    - name: Set timezone to Asia/Tokyo
+    - name: Set timezone to Europe/Amsterdam
       timezone:
-        name: Asia/Tokyo
+        name: Europe/Amsterdam
     - name: Restart service crond (enable timezone)
       service:
         name: crond
@@ -57,11 +57,11 @@
         regexp: "^group = "
         insertafter: "^; RPM: Keep a group"
         line: "group = nginx"
-    - name: Change php timezone to Asia/Tokyo
+    - name: Change php timezone to Europe/Amsterdam
       lineinfile:
         dest: /etc/php.ini
         insertafter: "^;date.timezone ="
-        line: "date.timezone = Asia/Tokyo"
+        line: "date.timezone = Europe/Amsterdam"
     - name: Change php expose_php to Off
       lineinfile:
         dest: /etc/php.ini
