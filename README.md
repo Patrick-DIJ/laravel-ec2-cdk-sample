@@ -3,12 +3,11 @@
 ## Create CodeCommit
 
 ```bash
-git clone https://github.com/nihemak/laravel-ec2-cdk-sample.git
-cd laravel-ec2-cdk-sample/infra
+cd ./infra
 npm install
 npm run build
 ./node_modules/aws-cdk/bin/cdk deploy CodeStore --require-approval never
-git push ssh://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/laravel-ec2-sample --all
+git push ssh://git-codecommit.eu-central-1.amazonaws.com/v1/repos/laravel-ec2-sample --all
 ```
 
 ## Create CodeBuild ecr
