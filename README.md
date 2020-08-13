@@ -14,7 +14,14 @@ git push ssh://git-codecommit.eu-central-1.amazonaws.com/v1/repos/laravel-ec2-sa
 
 ```bash
 ./node_modules/aws-cdk/bin/cdk deploy BuildEnv --require-approval never
+```
+
+## Run CodeBuild ecr
+```bash
 CODEBUILD_ID=$(aws codebuild start-build --project-name laravel-ec2-sample-ecr --source-version master | tr -d "\n" | jq -r '.build.id')
+```
+check CodeBuild build progress
+```bash
 echo "started.. id is ${CODEBUILD_ID}"
 while true
 do
