@@ -21,7 +21,7 @@ new EC2Stack(app, 'EC2', {
     vpc: network.vpc,
 });
 
-new DBStack(app, 'DBStack', {
+new DBStack(app, 'DB', {
     serviceName: 'laravel',
     databaseUsername: 'laravel',
     vpc: network.vpc,

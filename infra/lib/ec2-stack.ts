@@ -55,7 +55,7 @@ export class EC2Stack extends cdk.Stack {
           [
             '#!/bin/bash',
             'yum -y update',
-            'amazon-linux-extras install ansible2 nginx1.12 php7.3 -y',
+            'amazon-linux-extras install ansible2 nginx1.12 php7.4 -y',
             'yum install -y php-fpm php-mbstring php-xml php-bcmath',
             'yum install -y python2-pip ruby',
             'cd /home/ec2-user',

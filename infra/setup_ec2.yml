@@ -14,7 +14,7 @@
       shell: "amazon-linux-extras enable {{ item }}"
       with_items:
         - nginx1.12
-        - php7.3
+        - php7.4
     - name: Install the latest version of yum packages
       yum:
         name: "{{ item }}"

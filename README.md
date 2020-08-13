@@ -6,21 +6,21 @@
 cd ./infra
 npm install
 npm run build
-./node_modules/aws-cdk/bin/cdk deploy CodeStore --require-approval never
+cdk deploy CodeStore --require-approval never
 git push ssh://git-codecommit.eu-central-1.amazonaws.com/v1/repos/laravel-ec2-sample --all
 ```
 
 ## Create CodeBuild ecr
 
 ```bash
-./node_modules/aws-cdk/bin/cdk deploy BuildEnv --require-approval never
+cdk deploy BuildEnv --require-approval never
 ```
 
-## Run CodeBuild ecr
+## Run CodeBuild ecr build
 ```bash
 CODEBUILD_ID=$(aws codebuild start-build --project-name laravel-ec2-sample-ecr --source-version master | tr -d "\n" | jq -r '.build.id')
 ```
-check CodeBuild build progress
+## Check CodeBuild build progress
 ```bash
 echo "started.. id is ${CODEBUILD_ID}"
 while true
@@ -47,14 +47,20 @@ chmod 400 test-laravel.pem
 ```
 
 ```bash
-./node_modules/aws-cdk/bin/cdk deploy Network --require-approval never
-./node_modules/aws-cdk/bin/cdk deploy EC2 --require-approval never
+cdk deploy Network --require-approval never
+cdk deploy EC2 --require-approval never
+```
+
+## Create Database
+
+```bash
+cdk deploy DB --require-approval never
 ```
 
 ## Create Deploy CodePipeline
 
 ```bash
-./node_modules/aws-cdk/bin/cdk deploy DeployPipeline --require-approval never
+cdk deploy DeployPipeline --require-approval never
 ```
 
 # Usage
