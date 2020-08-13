@@ -17,7 +17,7 @@ const buildEnv = new BuildEnvStack(app, 'BuildEnv', {
 
 const network = new NetworkStack(app, 'Network');
 
-new EC2Stack(app, 'EC2', {
+const ec2 = new EC2Stack(app, 'EC2', {
     vpc: network.vpc,
 });
 
@@ -25,6 +25,7 @@ new DBStack(app, 'DB', {
     serviceName: 'laravel',
     databaseUsername: 'laravel',
     vpc: network.vpc,
+    ec2SecurityGroup: ec2.ec2SecurityGroup,
 });
 
 new DeployPipelineStack(app, 'DeployPipeline', {

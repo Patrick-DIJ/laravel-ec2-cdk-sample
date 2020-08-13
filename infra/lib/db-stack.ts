@@ -8,6 +8,7 @@ interface DBProps extends cdk.StackProps {
     serviceName: string;
     databaseUsername: string;
     vpc: ec2.IVpc;
+    ec2SecurityGroup: ec2.SecurityGroup;
 }
 
 export class DBStack extends cdk.Stack {
@@ -42,9 +43,19 @@ export class DBStack extends cdk.Stack {
             subnetIds
         });
 
+        const databaseSecurityGroup = new ec2.SecurityGroup(this, 'DatabaseSecurityGroup', {
+            vpc: props.vpc,
+            securityGroupName: 'test-laravel-database',
+            description: 'test laravel database',
+            allowAllOutbound: true
+        });
+
+        databaseSecurityGroup.connections.allowFrom(props.ec2SecurityGroup, ec2.Port.tcp(3306), 'Ingress MYSQL from ec2 security group');
+
         const rdsCluster = new rds.CfnDBCluster(this, 'DBCluster', {
             engine: 'aurora',
             engineMode: 'serverless',
+            vpcSecurityGroupIds: [databaseSecurityGroup.securityGroupId],
             masterUsername: databaseCredentialsSecret.secretValueFromJson('username').toString(),
             masterUserPassword: databaseCredentialsSecret.secretValueFromJson('password').toString(),
             deletionProtection: false,

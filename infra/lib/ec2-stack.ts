@@ -7,24 +7,27 @@ interface EC2Props extends cdk.StackProps {
 }
 
 export class EC2Stack extends cdk.Stack {
+  public readonly ec2SecurityGroup: ec2.SecurityGroup;
+
   constructor(scope: cdk.Construct, id: string, props: EC2Props) {
     super(scope, id);
 
-    const securityGroup = new ec2.SecurityGroup(this, 'SecurityGroup', {
+    this.ec2SecurityGroup = new ec2.SecurityGroup(this, 'SecurityGroup', {
       vpc: props.vpc,
       securityGroupName: 'test-laravel',
       description: 'test laravel',
       allowAllOutbound: true
     });
 
-    securityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(22));
-    securityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80));
-    securityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(443));
+    this.ec2SecurityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(22));
+    this.ec2SecurityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80));
+    this.ec2SecurityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(443));
 
     const role = new iam.Role(this, 'EC2IAMRole', {
       assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com'),
       roleName: 'test-laravel-ec2'
     });
+
     new iam.Policy(this, 'EC2IAMPolicy', {
       policyName: 'test-laravel-ec2',
       roles: [role],
@@ -44,7 +47,7 @@ export class EC2Stack extends cdk.Stack {
       imageId: 'ami-00edb93a4d68784e3',
       instanceType: 't2.micro',
       keyName: 'test-laravel',
-      securityGroupIds: [securityGroup.securityGroupId],
+      securityGroupIds: [this.ec2SecurityGroup.securityGroupId],
       subnetId: props.vpc.publicSubnets[0].subnetId,
       tags: [{
         key: 'Name',
