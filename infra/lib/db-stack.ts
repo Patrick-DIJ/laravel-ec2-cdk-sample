@@ -59,5 +59,13 @@ export class DBStack extends cdk.Stack {
             parameterName: `${props.serviceName}-resource-arn`,
             stringValue: dbClusterArn,
         });
+
+        new cdk.CfnOutput(this, 'DB endpoint address', {
+            value: rdsCluster.attrEndpointAddress,
+        });
+
+        new cdk.CfnOutput(this, 'DB endpoint port', {
+            value: rdsCluster.attrEndpointPort,
+        });
     }
 }
