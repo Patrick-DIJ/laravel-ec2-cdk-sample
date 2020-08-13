@@ -1,4 +1,4 @@
-FROM amazonlinux:2.0.20181114
+FROM amazonlinux:2.0.20200722
 
 RUN amazon-linux-extras install php7.4 -y
 RUN yum install -y php-mbstring php-xml php-bcmath
