@@ -9,13 +9,21 @@ export class NetworkStack extends cdk.Stack {
 
     this.vpc = new ec2.Vpc(this, 'VPC', {
       cidr: '10.0.0.0/16',
-      maxAzs: 1,
-      natGateways: 0,
       subnetConfiguration: [
         {
           cidrMask: 24,
-          name: 'Web',
+          name: 'Ingress',
           subnetType: ec2.SubnetType.PUBLIC,
+        },
+        {
+          cidrMask: 24,
+          name: 'Application',
+          subnetType: ec2.SubnetType.PRIVATE,
+        },
+        {
+          cidrMask: 28,
+          name: 'Database',
+          subnetType: ec2.SubnetType.ISOLATED
         },
       ],
     });

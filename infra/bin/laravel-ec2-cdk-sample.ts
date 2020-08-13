@@ -5,6 +5,7 @@ import { CodeStoreStack } from '../lib/code-store-stack';
 import { BuildEnvStack } from '../lib/build-env-stack';
 import { NetworkStack } from '../lib/network-stack';
 import { EC2Stack } from '../lib/ec2-stack';
+import { DBStack } from "../lib/db-stack";
 import { DeployPipelineStack } from '../lib/deploy-pipeline-stack';
 
 const app = new cdk.App();
@@ -17,6 +18,12 @@ const buildEnv = new BuildEnvStack(app, 'BuildEnv', {
 const network = new NetworkStack(app, 'Network');
 
 new EC2Stack(app, 'EC2', {
+    vpc: network.vpc,
+});
+
+new DBStack(app, 'DBStack', {
+    serviceName: 'laravel',
+    databaseUsername: 'laravel',
     vpc: network.vpc,
 });
 

@@ -17,6 +17,7 @@ export class BuildEnvStack extends cdk.Stack {
     this.ecrRepo = new ecr.Repository(this, 'EcrRepo', {
       repositoryName: 'test-laravel',
     });
+
     this.ecrRepo.addToResourcePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
       principals: [new iam.ServicePrincipal('codebuild.amazonaws.com')],

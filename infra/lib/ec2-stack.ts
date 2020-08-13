@@ -16,6 +16,7 @@ export class EC2Stack extends cdk.Stack {
       description: 'test laravel',
       allowAllOutbound: true
     });
+
     securityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(22));
     securityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80));
     securityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(443));
